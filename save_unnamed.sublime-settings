@@ -1,0 +1,5 @@
+{
+	// Folder that is used to save files
+	// "~" will get expanded to your home directory
+   "folder": "~"
+}
