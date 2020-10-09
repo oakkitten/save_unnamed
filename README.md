@@ -4,10 +4,18 @@ Do you create a lot of temporary files inside Sublime Text, and then spend time 
 
 ### Usage
 
-Press <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd> and choose `Save Unnamed: Save all files, including unnamed files`. To see what the plugin did, open console using <kbd>Ctrl</kbd>+<kbd>\`</kbd>.
+Press <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd> and choose either:
 
-New files names start with the curent date in `YYYYmmdd` format, followed by the first line of text and, if the syntax was set, an appropriate extension.
+  * Save Unnamed: Save all unnamed files
+  * Save Unnamed: Save all files, including unnamed files
+
+To see what the plugin did, open console using <kbd>Ctrl</kbd>+<kbd>\`</kbd>.
+
+New files names start with the curent date in `YYYYmmdd` format, followed by the first line of text and, if syntax was set, an appropriate extension.
 
 ### Settings
 
-Choose your destination folder in `Preferences` → `Package Settings` → `Save Unnamed`.
+In `Preferences` → `Package Settings` → `Save Unnamed` → `Settings` you can:
+
+* choose the destination folder
+* specify whether empty views should be saved
