@@ -1,5 +1,8 @@
 [{
-  "id": "save_all_files_including_unnamed",
   "caption": "Save Unnamed: Save all files, including unnamed files",
   "command": "save_all_files_including_unnamed"
+},
+{
+  "caption": "Save Unnamed: Save all unnamed files",
+  "command": "save_all_unnamed_files"
 }]
