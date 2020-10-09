@@ -91,20 +91,26 @@ def save_view(view, folder):
     view.run_command("save")
 
 
-# joining the folder with "" puts an appropriate slash on the end of the folder
-# this prevents windows from wrongly reporting that a directory "foo " exists
-def get_folder():
-    folder = sublime.load_settings(SETTINGS_FILE).get("folder")
-    folder = os.path.join(os.path.expanduser(folder), "")
-    if not os.path.isdir(folder):
-        raise IOError("""folder "{}" doesn't exist""".format(folder))
-    return folder
-
-
 class SaveFiles(sublime_plugin.ApplicationCommand):
+    @property
+    def settings(self):
+        return sublime.load_settings(SETTINGS_FILE)
+
+    # joining the folder with "" puts an appropriate slash on the end of the folder
+    # this prevents windows from wrongly reporting that a directory "foo " exists
+    def get_folder(self):
+        folder = self.settings.get("folder")
+        folder = os.path.join(os.path.expanduser(folder), "")
+        if not os.path.isdir(folder):
+            raise IOError("""folder "{}" doesn't exist""".format(folder))
+        return folder
+
+    def should_save_empty_views(self):
+        return self.settings.get("save_empty_views")
+
     def run(self):
         try:
-            folder = get_folder()
+            folder = self.get_folder()
         except IOError as e:
             sublime.error_message("{}: {}".format(PLUGIN_NAME, e))
             raise
@@ -113,13 +119,19 @@ class SaveFiles(sublime_plugin.ApplicationCommand):
 
         for window in sublime.windows():
             for view in window.views():
+                name = view.file_name()
+                name_string = "(no name)" if name is None else name
+
                 if not view.is_dirty():
-                    name = view.file_name()
-                    log("skipping a clean view:", "(no name)" if name is None else name)
+                    log("skipping a clean view:", name_string)
                     continue
 
-                if not self.save_if_has_name and view.file_name():
-                    log("skipping a dirty view that has a name:", view.file_name())
+                if not self.save_if_has_name and name:
+                    log("skipping a dirty view that has a name:", name_string)
+                    continue
+
+                if not self.should_save_empty_views() and not get_first_line_with_text(view):
+                    log("skipping an empty view:", name_string)
                     continue
 
                 save_view(view, folder)

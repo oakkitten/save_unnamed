@@ -10,20 +10,15 @@
                     {
                         "caption": "Save Unnamed",
                         "children":
-                        [   {
-                                "caption": "Settings – Default",
-                                "command": "open_file", "args":
+                        [   
+                            {
+                                "caption": "Settings",
+                                "command": "edit_settings", "args":
                                 {
-                                    "file": "${packages}/save_unnamed/save_unnamed.sublime-settings"
+                                    "base_file": "${packages}/save_unnamed/save_unnamed.sublime-settings",
+                                    "default": "{\n    \n}"
                                 }
                             },
-                            {
-                                "caption": "Settings – User",
-                                "command": "open_file", "args":
-                                {
-                                    "file": "${packages}/User/save_unnamed.sublime-settings"
-                                }
-                            }
                         ]
                     }
                 ]

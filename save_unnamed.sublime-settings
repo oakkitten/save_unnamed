@@ -1,5 +1,9 @@
 {
 	// Folder that is used to save files
 	// "~" will get expanded to your home directory
-   "folder": "~"
+   "folder": "~",
+
+   // If false, views that are empty or consist only of whitespace characters
+   // will not be saved
+   "save_empty_views": true
 }
